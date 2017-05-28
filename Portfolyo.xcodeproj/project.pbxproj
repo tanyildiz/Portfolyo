@@ -12,6 +12,7 @@
 		2464FB551EDB75C100D7398D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2464FB531EDB75C100D7398D /* Main.storyboard */; };
 		2464FB571EDB75C100D7398D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2464FB561EDB75C100D7398D /* Assets.xcassets */; };
 		2464FB5A1EDB75C100D7398D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2464FB581EDB75C100D7398D /* LaunchScreen.storyboard */; };
+		2464FB641EDB780100D7398D /* SampleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2464FB631EDB780100D7398D /* SampleTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		2464FB561EDB75C100D7398D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2464FB591EDB75C100D7398D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2464FB5B1EDB75C100D7398D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2464FB631EDB780100D7398D /* SampleTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SampleTableViewCell.swift; path = ../SampleTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +59,7 @@
 				2464FB4F1EDB75C100D7398D /* AppDelegate.swift */,
 				2464FB511EDB75C100D7398D /* ViewController.swift */,
 				2464FB531EDB75C100D7398D /* Main.storyboard */,
+				2464FB631EDB780100D7398D /* SampleTableViewCell.swift */,
 				2464FB561EDB75C100D7398D /* Assets.xcassets */,
 				2464FB581EDB75C100D7398D /* LaunchScreen.storyboard */,
 				2464FB5B1EDB75C100D7398D /* Info.plist */,
@@ -138,6 +141,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2464FB521EDB75C100D7398D /* ViewController.swift in Sources */,
+				2464FB641EDB780100D7398D /* SampleTableViewCell.swift in Sources */,
 				2464FB501EDB75C100D7398D /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
