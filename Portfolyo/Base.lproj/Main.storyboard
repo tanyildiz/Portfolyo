@@ -30,7 +30,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="200"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="GIK-PA-VDR" id="zkP-rb-w2M">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="199.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ae7-kG-Elw">
@@ -54,7 +54,6 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="image" destination="ae7-kG-Elw" id="egw-Ib-h4F"/>
                                             <outlet property="workName" destination="pmu-kg-Od7" id="LfR-J3-HnC"/>
                                         </connections>
                                     </tableViewCell>
@@ -73,6 +72,9 @@
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="yXM-Lu-8i8" secondAttribute="bottom" id="uoN-zp-fMY"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="tableView" destination="yXM-Lu-8i8" id="vkw-RO-nzB"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

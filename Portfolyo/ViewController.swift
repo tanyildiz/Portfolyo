@@ -11,6 +11,7 @@ import UIKit
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var workNames = [String]()
+    @IBOutlet weak var tableView: UITableView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,14 +21,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let url = URL(string: urlStr)
         let task = URLSession.shared.dataTask(with: url!) {(data, response, error) in
             
-            if error != nil
-            {
-                print(error!)
-            } else
-            {
+            if let urlVeri = data{
                 do
                 {
-                    let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                    let json = try JSONSerialization.jsonObject(with: urlVeri, options: .mutableContainers) as? NSDictionary
                     
                     if let posts = json?.value(forKeyPath: "posts.title") as? NSArray
                     {
@@ -37,13 +34,21 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                         }
                     }
                     print(self.workNames)
+                    
+                    // YORUM 1:  Burayı eklemezseniz tabloya veri doldurmaz. AŞAĞIDA 2 yorum daha yazdım
+                    DispatchQueue.main.async {
+                        self.tableView.reloadData()
+                    }
                 }
                 catch
                 {
                     print(error)
                 }
             }
-        }; task.resume()
+        }
+        //YORUM 2:Task resume yanlış yerde kullanılmıştı Xcode öncesinde ; öneriyorsa bilinki hata yapmışsınızdır
+        task.resume()
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -57,6 +62,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
+        //YORUM 3: Resim alanını burda tanımlamayıp tasarım ekranında tanımlarsanız uygulamanız çalışmaz. 
+        //Resim olayı için kampanyalar derslerinin tamamını izleyin
         let cell = tableView.dequeueReusableCell(withIdentifier: "sampleCell", for: indexPath) as! SampleTableViewCell
         cell.workName.text = workNames[indexPath.row]
         return cell
