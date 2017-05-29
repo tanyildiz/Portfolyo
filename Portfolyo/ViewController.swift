@@ -24,36 +24,37 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let url = URL(string: urlStr)
         let task = URLSession.shared.dataTask(with: url!) {(data, response, error) in
             
-            if let urlVeri = data{
+            if let urlVeri = data
+            {
                 do
                 {
                     let json = try JSONSerialization.jsonObject(with: urlVeri, options: .mutableContainers) as? NSDictionary
                     
                     if let posts = json?.value(forKeyPath: "posts.title") as? NSArray
                     {
-                        for i in 0..<posts.count
-                        {
-                            if posts[i] is NSArray
+                        for i in 0..<posts.count {
+                            if let allpost = posts[i] as? String
                             {
-                                if let postTitle = json?.value(forKeyPath:"posts.title") as? String
-                                {
-                                    self.workNames.append(postTitle)
-                                }
-                                if let gorsel = json?.value(forKeyPath: "posts.attachments.images.medium.url") as? String
-                                {
-                                    self.images.append(gorsel)
-                                    //if let gorsel = json?.value(forKeyPath: "posts.attachments.images.medium.url") as? String
-                                }
+                                self.workNames.append(allpost)
                             }
+                        }
+                    }
+                    
+                    if let allimg = json?.value(forKeyPath: "posts.attachments.images.medium.url") as? NSArray
+                    {
+                        for i in 0..<allimg.count
+                        {
+                            self.images.append(allimg[i] as! String)
                         }
                     }
                     
                     
                     
                     // YORUM 1:  Burayı eklemezseniz tabloya veri doldurmaz. AŞAĞIDA 2 yorum daha yazdım
-                    DispatchQueue.main.async {
+                    DispatchQueue.main.async
+                        {
                         self.tableView.reloadData()
-                    }
+                        }
                 }
                 catch
                 {
@@ -64,7 +65,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         //YORUM 2:Task resume yanlış yerde kullanılmıştı Xcode öncesinde ; öneriyorsa bilinki hata yapmışsınızdır
         task.resume()
-        print(self.workNames)
+        print(self.images)
     }
     
     override func didReceiveMemoryWarning() {
@@ -81,6 +82,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         //YORUM 3: Resim alanını burda tanımlamayıp tasarım ekranında tanımlarsanız uygulamanız çalışmaz.
         //Resim olayı için kampanyalar derslerinin tamamını izleyin
         let cell = tableView.dequeueReusableCell(withIdentifier: "sampleCell", for: indexPath) as! SampleTableViewCell
+
         cell.workName.text = workNames[indexPath.row]
         
         let imgView = cell.viewWithTag(1) as? UIImageView
