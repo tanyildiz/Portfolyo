@@ -7,11 +7,15 @@
 //
 
 import UIKit
+import SDWebImage
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var workNames = [String]()
-
+    var images = [String]()
+    
+    @IBOutlet weak var tableView: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -20,32 +24,50 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let url = URL(string: urlStr)
         let task = URLSession.shared.dataTask(with: url!) {(data, response, error) in
             
-            if error != nil
-            {
-                print(error!)
-            } else
+            if let urlVeri = data
             {
                 do
                 {
-                    let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                    let json = try JSONSerialization.jsonObject(with: urlVeri, options: .mutableContainers) as? NSDictionary
                     
                     if let posts = json?.value(forKeyPath: "posts.title") as? NSArray
                     {
-                        for i in 0..<posts.count
-                        {
-                            self.workNames.append(posts[i] as! String)
+                        for i in 0..<posts.count {
+                            if let allpost = posts[i] as? String
+                            {
+                                self.workNames.append(allpost)
+                            }
                         }
                     }
-                    print(self.workNames)
+                    
+                    if let allimg = json?.value(forKeyPath: "posts.attachments.images.medium.url") as? NSArray
+                    {
+                        for i in 0..<allimg.count
+                        {
+                            self.images.append(allimg[i] as! String)
+                        }
+                    }
+                    
+                    
+                    
+                    // YORUM 1:  Burayı eklemezseniz tabloya veri doldurmaz. AŞAĞIDA 2 yorum daha yazdım
+                    DispatchQueue.main.async
+                        {
+                        self.tableView.reloadData()
+                        }
                 }
                 catch
                 {
                     print(error)
                 }
             }
-        }; task.resume()
+            
+        }
+        //YORUM 2:Task resume yanlış yerde kullanılmıştı Xcode öncesinde ; öneriyorsa bilinki hata yapmışsınızdır
+        task.resume()
+        print(self.images)
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -57,14 +79,21 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
+        //YORUM 3: Resim alanını burda tanımlamayıp tasarım ekranında tanımlarsanız uygulamanız çalışmaz.
+        //Resim olayı için kampanyalar derslerinin tamamını izleyin
         let cell = tableView.dequeueReusableCell(withIdentifier: "sampleCell", for: indexPath) as! SampleTableViewCell
+
         cell.workName.text = workNames[indexPath.row]
+        
+        let imgView = cell.viewWithTag(1) as? UIImageView
+        imgView?.sd_setImage(with: URL(string: images[indexPath.row]))
+        
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 200
     }
-
+    
 }
 
